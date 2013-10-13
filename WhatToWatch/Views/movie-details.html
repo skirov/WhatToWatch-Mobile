@@ -1,0 +1,42 @@
+<div data-role="view" data-layout="main-layout" id="home-view" data-title="Movie Details" data-show="app.details.init">
+    <ul id="select-details-option" data-index="0">
+        <li>
+            Details
+        </li>
+        <li>
+            Cast
+        </li>
+        <li>
+            Clips
+        </li>
+        <li>
+            Similiar movies
+        </li>
+    </ul>
+    <ul data-role="listview" data-style="inset">
+        <li class="movie-details-wrapper">
+            <div class="movie-details">
+                <img class="push-left" data-bind="attr: { src: movie.poster, alt: movie.title }" />
+                <div class="push-left details-main-info">
+                    <p data-bind="text: movie.title"></p>
+                    <span class="small" data-bind="text: movie.genresAndDuration"></span>
+                    <br />
+                    <span class="details-rating" data-bind="text: movie.ratings.audience_score"></span>
+                    <a class="details-imdb-link small" data-bind="attr: { href: movie.imdbLink }">View in IMDB</a>
+                </div>
+                <div class="clear"></div>
+                
+                <p class="medium">Description</p>
+                <p class=" description small" data-bind="text: movie.description"></p>
+            </div>
+        </li>
+    </ul>
+    <ul data-role="listview" data-style="inset" style="display:none" id="details-cast">
+    </ul>
+    <ul data-role="listview" data-style="inset" style="display:none">
+        <li class="movie-details-wrapper"></li>
+    </ul>
+    <ul data-role="listview" data-style="inset" style="display:none">
+        <li class="movie-details-wrapper"></li>
+    </ul>
+</div>

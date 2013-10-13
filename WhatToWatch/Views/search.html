@@ -1,0 +1,13 @@
+<div data-role="view" data-layout="main-layout" id="home-view" data-title="Search" data-init="app.search.init">
+    <div class="search-container">
+        <input type="text" class="search-text" id="search-movie-input" placeholder="Search for movies" />
+        <a data-role="button" data-icon="search" data-bind="events: {click: getSearchResults}"></a>
+    </div>
+    <ul data-role="listview" data-style="inset" data-type="group">
+        <li>
+            Search results
+            <ul data-id="search-office" id="search-office" data-bind="source: movies" data-template="top-template">
+            </ul>
+        </li>
+    </ul>
+</div>
