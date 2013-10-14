@@ -31,18 +31,35 @@
             </div>
         </li>
     </ul>
-    
+
     <ul data-role="listview" data-style="inset" style="display:none" id="details-cast">
     </ul>
-    
+
     <ul data-role="listview" data-style="inset" style="display:none" id="details-clips">
     </ul>
-    
-    <ul data-role="listview" data-style="inset" data-type="group">
+
+    <ul data-role="listview" data-style="inset" data-type="group" style="display:none">
         <li>
             Similar movies
             <ul data-id="details-similar" data-template="top-template" data-bind="source: similar">
             </ul>
         </li>
     </ul>
+
+    <p class="comments">
+        <a data-role="button" data-rel="modalview" href="#modalview-comment" id="modalview-open-button">Leave a comment</a>
+    </p>
+
+    <div data-role="modalview" id="modalview-comment" style="width: 95%; height: 18em;">
+        <div data-role="header">
+            <div data-role="navbar">
+                <span data-align="left">Leave a comment</span>
+                <a data-click="app.details.closeModalViewComment" class="medium" data-role="button" data-align="right">Cancel</a>
+            </div>
+        </div>
+        <div class="comment-inputs">
+            <textarea id="username" rows="7" cols="20"></textarea>
+            <a data-click="app.details.postComment" id="post-comment-input" type="button" data-role="button">Post your comment</a>
+        </div>
+    </div>
 </div>

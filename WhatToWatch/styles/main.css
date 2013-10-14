@@ -170,3 +170,16 @@ body, html
 .top-button-center{
     margin: 3% 0 5% 0;
 }
+
+
+/*Comments*/
+.comments{
+    text-align: center;
+}
+.comment-inputs{
+    text-align: center;
+}
+#post-comment-input{
+    width: 50%;
+    margin-top: 5%;
+}

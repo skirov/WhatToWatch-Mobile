@@ -129,7 +129,17 @@ var app = app || {};
         getMovieDetails(movieId);
     }
     
+    function postComment() {
+        console.log("sad");
+    }
+    
+    function closeModalViewComment() {
+        $("#modalview-comment").kendoMobileModalView("close");
+    }
+    
     a.details = {
-        init : init   
+        init : init,
+        asd: asd,
+        closeModalViewComment: closeModalViewComment
     };
 }(app));
