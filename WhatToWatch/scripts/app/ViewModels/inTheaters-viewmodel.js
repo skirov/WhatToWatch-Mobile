@@ -1,21 +1,8 @@
 var app = app || {};
 
-(function(a) {
-    var next = null;
-    
-    var searchViewModel = kendo.observable({
-        movies: [],
-        getSearchResults: getSearchResults
-    });
-    
-    function getSearchResults() {
-        var queryString = $("#search-movie-input").val();
-
-        if(queryString === null || queryString === undefined || queryString.trim() === ""){
-            navigator.notification.alert('Please enter a value.');
-        }
-        
-        app.data.searchMovies(queryString).then(function(result) {
+(function(a) {    
+    function moreBoxOffice() {
+        app.data.moreInTheaters().then(function(result) {
             var moviesModel = [];
             for (var i = 0; i < result.movies.length; i++) {
                 var moviePoster = result.movies[i].posters.thumbnail;
@@ -36,7 +23,20 @@ var app = app || {};
                     }
                 });
             }
-            searchViewModel.set("movies", moviesModel);
+            
+            var dataSource = new kendo.data.DataSource({
+                data: moviesModel,
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true,
+                pageSize: 10
+            });
+
+            $("#more-in-theaters").kendoMobileListView({
+                dataSource: dataSource,
+                template: $("#endless-template").text(),
+                endlessScroll: true
+            });
         }, function() {
             navigator.notification.alert(
                 'An error occured.',
@@ -51,12 +51,11 @@ var app = app || {};
         });
     }
     
-    function init(e) {
-        kendo.bind(e.view.element, searchViewModel, kendo.ui.mobile);
+    function init() {
+        moreBoxOffice();
     }
     
-    a.search = {
-        init : init   
-    };
-}(app)
-);
+    a.inTheaters = {
+        init: init
+    }
+}(app));

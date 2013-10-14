@@ -20,6 +20,10 @@
         <script src="scripts/app/ViewModels/home-viewmodel.js"></script>
         <script src="scripts/app/ViewModels/search-viewmodel.js"></script>
         <script src="scripts/app/ViewModels/details-viewmodel.js"></script>
+        <script src="scripts/app/ViewModels/settings-viewmodel.js"></script>
+        <script src="scripts/app/ViewModels/boxOffice-viewmodel.js"></script>
+        <script src="scripts/app/ViewModels/inTheaters-viewmodel.js"></script>
+        <script src="scripts/app/ViewModels/upcoming-viewmodel.js"></script>
     </head>
     <body>
         <div data-role="view" data-layout="main-layout" id="home-view" data-title="What To Watch" data-init="app.home.init">
@@ -28,16 +32,19 @@
                     Top 3 Box Office Movies
                     <ul data-id="top-box-office" id="top-box-office" data-bind="source: boxOffice" data-template="top-template">
                     </ul>
+                    <a data-role="button" href="Views/box-office.html" data-align="right" class="top-button-center">More from the box office</a>
                 </li>
                 <li>
                     Top 3 Movies In Theaters
                     <ul data-id="top-in-theaters" id="top-in-theaters" data-bind="source: inTheaters" data-template="top-template">
                     </ul>
+                    <a data-role="button" href="Views/in-theaters.html" data-align="right" class="top-button-center">More from the theaters</a>
                 </li>
                 <li>
                     Top 3 Upcoming Movies
                     <ul data-id="top-upcoming" id="top-upcoming" data-bind="source: upcoming" data-template="top-template">
                     </ul>
+                    <a data-role="button" href="Views/upcoming.html" data-align="right" class="top-button-center">More upcoming movies</a>
                 </li>
             </ul>
         </div>
@@ -53,6 +60,7 @@
                 <div data-role="tabstrip">
                     <a data-icon="home" href="index.html">Home</a>
                     <a data-icon="search" href="Views/search.html">Search</a>
+                    <a data-icon="settings" href="Views/settings.html">Settings</a>
                 </div>
             </footer>
         </div>
@@ -61,12 +69,32 @@
             <li data-icon="toprated">
                 <a class="km-listview-link" data-role="listview-link" href="Views/movie-details.html?id=#: id #">
                     <p class="top-details">
-                        <img class="top-image" src="#: posters.thumbnail#" alt="#: title #" />
+                        #if (app.loadImages === true) { #
+                            <img class="top-image" src="#: posters.thumbnail#
+                                 " alt="#: title #" />
+                        #}
+                        else {
+                        }#
                         <span class="top-text"> <span>#: title # (#: year #)</span> <span class="rating">#: ratings.audience_score #</span> </span>
                     </p>
                     <div class="clear"></div>
                 </a>
             </li>
+        </script>
+
+        <script id="endless-template" type="text/x-kendo-template">
+            <a data-role="listview-link" href="Views/movie-details.html?id=#: id #">
+                <p class="top-details">
+                    #if (app.loadImages === true) { #
+                        <img class="top-image" src="#: posters.thumbnail#
+                             " alt="#: title #" />
+                    #}
+                    else {
+                    }#
+                    <span class="top-text"> <span>#: title # (#: year #)</span> <span class="rating">#: ratings.audience_score #</span> </span>
+                </p>
+                <div class="clear"></div>
+            </a>
         </script>
     </body>
 </html>

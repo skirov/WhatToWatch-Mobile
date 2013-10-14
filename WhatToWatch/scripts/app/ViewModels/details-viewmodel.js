@@ -3,19 +3,10 @@ var app = app || {};
 (function(a) {
     var detailsViewModel = kendo.observable({
         movie: {},
-        cast: []
+        similar: []
     });
         
-    function getMovieDetails(movieId) {
-        //da probvam da go bindna s atributi za da ne se smalqva, za6toto sega suzdava listview v listview i t.n
-        app.data.movieCast(movieId).then(function(cast) {
-            $("#details-cast").kendoMobileListView({
-                dataSource: kendo.data.DataSource.create({data: cast.cast, group: "name"}),
-                template: "${characters.join()}",
-                fixedHeaders: false
-            });
-        });
-        
+    function getMovieDetails(movieId) {        
         app.data.movieDetils(movieId).then(function(movie) {
             var moviesModel = {
                 id: movie.id,
@@ -37,6 +28,86 @@ var app = app || {};
             };
             
             detailsViewModel.set("movie", moviesModel);
+            
+            app.data.movieCast(movieId).then(function(cast) {
+                $("#details-cast").kendoMobileListView({
+                    dataSource: kendo.data.DataSource.create({data: cast.cast, group: "name"}),
+                    template: "<span class=\"medium\">Plays - ${characters.join()}</span>",
+                    fixedHeaders: false
+                }).parent().css("padding", "0");
+            }, function() {
+                navigator.notification.alert(
+                    'An error occured.',
+                    redirectToHomes,
+                    "We'll redirect you to the homepage.",
+                    'Ok.'
+                    );
+        
+                function redirectToHome() {
+                    window.location = "../index.html"
+                }
+            });
+            
+            app.data.movieClips(movieId).then(function(clips) {
+                $("#details-clips").kendoMobileListView({
+                    dataSource: kendo.data.DataSource.create({data: clips.clips, group: "title"}),
+                    template: 
+                    "<p class=\"medium pull-left\"><a href=\"${links.alternate}\">View at RottenTomatoes</a> - ${Math.round(duration / 60)}min </p>",
+                    fixedHeaders: false
+                }).parent().css("padding", "0");
+                ;
+            }, function() {
+                navigator.notification.alert(
+                    'An error occured.',
+                    redirectToHomes,
+                    "We'll redirect you to the homepage.",
+                    'Ok.'
+                    );
+        
+                function redirectToHome() {
+                    window.location = "../index.html"
+                }
+            });
+            
+            app.data.movieSimilar(movieId).then(function(similar) {
+                var moviesModel = [];
+                for (var i = 0; i < similar.movies.length; i++) {
+                    moviesModel.push({
+                        id: similar.movies[i].id,
+                        title: similar.movies[i].title,
+                        year: similar.movies[i].year,
+                        posters: {
+                            thumbnail : similar.movies[i].posters.thumbnail
+                        },
+                        ratings: {
+                            audience_score: similar.movies[i].ratings.audience_score
+                        }
+                    });
+                }
+                detailsViewModel.set("similar", moviesModel);
+            }, function() {
+                navigator.notification.alert(
+                    'An error occured.',
+                    redirectToHomes,
+                    "We'll redirect you to the homepage.",
+                    'Ok.'
+                    );
+        
+                function redirectToHome() {
+                    window.location = "../index.html"
+                }
+            });
+        }, function() {
+            navigator.notification.alert(
+                'An error occured.',
+                redirectToHomes,
+                "We'll redirect you to the homepage.",
+                'Ok.'
+                );
+        
+            function redirectToHome() {
+                window.location = "../index.html"
+            }
         });
     }
     

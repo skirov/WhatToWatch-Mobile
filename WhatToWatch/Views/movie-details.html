@@ -1,4 +1,4 @@
-<div data-role="view" data-layout="main-layout" id="home-view" data-title="Movie Details" data-show="app.details.init">
+<div data-role="view" data-layout="main-layout" id="details-view" data-title="Movie Details" data-show="app.details.init">
     <ul id="select-details-option" data-index="0">
         <li>
             Details
@@ -25,18 +25,24 @@
                     <a class="details-imdb-link small" data-bind="attr: { href: movie.imdbLink }">View in IMDB</a>
                 </div>
                 <div class="clear"></div>
-                
+
                 <p class="medium">Description</p>
                 <p class=" description small" data-bind="text: movie.description"></p>
             </div>
         </li>
     </ul>
+    
     <ul data-role="listview" data-style="inset" style="display:none" id="details-cast">
     </ul>
-    <ul data-role="listview" data-style="inset" style="display:none">
-        <li class="movie-details-wrapper"></li>
+    
+    <ul data-role="listview" data-style="inset" style="display:none" id="details-clips">
     </ul>
-    <ul data-role="listview" data-style="inset" style="display:none">
-        <li class="movie-details-wrapper"></li>
+    
+    <ul data-role="listview" data-style="inset" data-type="group">
+        <li>
+            Similar movies
+            <ul data-id="details-similar" data-template="top-template" data-bind="source: similar">
+            </ul>
+        </li>
     </ul>
 </div>
